@@ -32,3 +32,14 @@ resource "helm_release" "default" {
   repository = "https://ansible.github.io/awx-operator/"
   chart      = "awx-operator"
 }
+
+# Read the deployment file.
+data "kubectl_file_documents" "default" {
+    content = file("awx-deployment.yaml")
+}
+
+# Deploy AWX
+resource "kubectl_manifest" "default" {
+    for_each  = data.kubectl_file_documents.default.manifests
+    yaml_body = each.value
+}

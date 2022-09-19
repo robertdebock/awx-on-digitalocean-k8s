@@ -2,27 +2,23 @@
 
 An experiment that runs [AWX](https://github.com/ansible/awx) on [Digitalocan](https://www.digitalocean.com), on the [Kubernetes](https://kubernetes.io).
 
-## Create the Kubernetes cluster and the awx-operator.
+## Create the Kubernetes cluster, the awx-operator and awx-deployment.
 
 ```shell
 terraform apply
 ```
 
-## Create a deployment of AWX, based on the awx-operator.
-
-```shell
-kubectl --kubeconfig=kube_config.yaml create namespace awx
-kubectl --kubeconfig=kube_config.yaml -n awx apply -f awx-deployment.yaml
-```
-
-## Forward a (local) port to the AWX instance.
-
-```shell
-kubectl --kubeconfig=kube_config.yaml -n awx port-forward service/awx-service 8080:80
-```
-
 ## Get the admin password.
 
 ```shell
-kubectl  --kubeconfig=kube_config.yaml -n awx get secret awx-admin-password -o jsonpath="{.data.password}" | base64 --decode
+alias kubctl="kubectl --kubeconfig=kube_config.yaml"
+kubectl get secret my-awx-admin-password -o jsonpath="{.data.password}" | base64 --decode
+```
+
+The Kubernetes deployments creates a load balancer. Please review the [Digital Ocean load balancer dashboard](https://cloud.digitalocean.com/networking/load_balancers).
+
+## Cleanup
+
+```shell
+terraform destroy
 ```

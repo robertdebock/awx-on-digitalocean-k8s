@@ -4,6 +4,10 @@ terraform {
       source = "digitalocean/digitalocean"
       version = "2.20.0"
     }
+    kubectl = {
+      source = "gavinbunney/kubectl"
+      version = "1.14.0"
+    }
     local = {
       source = "hashicorp/local"
       version = "2.2.3"
@@ -17,6 +21,9 @@ terraform {
 
 provider "digitalocean" {}
 
+provider "kubectl" {
+  config_path = local_file.default.filename
+}
 provider "local" {}
 
 provider "helm" {
