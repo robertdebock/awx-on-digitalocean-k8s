@@ -11,6 +11,7 @@ terraform apply
 ## Create a deployment of AWX, based on the awx-operator.
 
 ```shell
+kubectl --kubeconfig=kube_config.yaml create namespace awx
 kubectl --kubeconfig=kube_config.yaml -n awx apply -f awx-deployment.yaml
 ```
 
