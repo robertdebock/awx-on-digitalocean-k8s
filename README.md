@@ -8,6 +8,8 @@ An experiment that runs [AWX](https://github.com/ansible/awx) on [Digitalocan](h
 terraform apply
 ```
 
+The full deployment may take 15 minutes or so. Terraform creates a Kubernetes deployment and reports as done, although the actual deployment takes a while.
+
 ## Get the admin password.
 
 ```shell

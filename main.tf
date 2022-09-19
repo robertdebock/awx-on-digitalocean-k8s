@@ -33,7 +33,7 @@ resource "helm_release" "default" {
   chart      = "awx-operator"
 }
 
-# Read the deployment file.
+# Read the AWX deployment file.
 data "kubectl_file_documents" "default" {
     content = file("awx-deployment.yaml")
 }
