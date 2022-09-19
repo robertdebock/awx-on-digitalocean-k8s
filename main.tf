@@ -1,8 +1,11 @@
+# Find kubernetes versions.
+data "digitalocean_kubernetes_versions" "default" {}
+
 # Create a K8s cluster.
 resource "digitalocean_kubernetes_cluster" "default" {
   name    = "robert"
   region  = "ams3"
-  version = "1.22.8-do.1"
+  version = data.digitalocean_kubernetes_versions.default.latest_version
   ha      = true
 
   node_pool {
