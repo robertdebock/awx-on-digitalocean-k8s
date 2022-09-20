@@ -13,7 +13,7 @@ The full deployment may take 15 minutes or so. Terraform creates a Kubernetes de
 ## Get the admin password.
 
 ```shell
-alias kubctl="kubectl --kubeconfig=kube_config.yaml"
+alias kubectl="kubectl --kubeconfig=kube_config.yaml"
 kubectl get secret my-awx-admin-password -o jsonpath="{.data.password}" | base64 --decode
 ```
 

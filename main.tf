@@ -31,6 +31,9 @@ resource "helm_release" "default" {
   name       = "my-awx-operator"
   repository = "https://ansible.github.io/awx-operator/"
   chart      = "awx-operator"
+  depends_on = [
+    local_file.default
+  ]
 }
 
 # Read the AWX deployment file.
@@ -38,8 +41,18 @@ data "kubectl_file_documents" "default" {
     content = file("awx-deployment.yaml")
 }
 
+resource "time_sleep" "default" {
+  destroy_duration = "3m"
+}
+
+
 # Deploy AWX
 resource "kubectl_manifest" "default" {
     for_each  = data.kubectl_file_documents.default.manifests
     yaml_body = each.value
+    depends_on = [
+      local_file.default,
+      helm_release.default,
+      time_sleep.default
+    ]
 }
