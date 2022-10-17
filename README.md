@@ -17,7 +17,11 @@ alias kubectl="kubectl --kubeconfig=kube_config.yaml"
 kubectl get secret my-awx-admin-password -o jsonpath="{.data.password}" | base64 --decode
 ```
 
+## Get the hostname.
+
 The Kubernetes deployments creates a load balancer. Please review the [Digital Ocean load balancer dashboard](https://cloud.digitalocean.com/networking/load_balancers).
+
+The service may take a couple of minutes to be available.
 
 ## Cleanup
 
