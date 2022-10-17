@@ -45,7 +45,6 @@ resource "time_sleep" "default" {
   destroy_duration = "3m"
 }
 
-
 # Deploy AWX
 resource "kubectl_manifest" "default" {
     for_each  = data.kubectl_file_documents.default.manifests
